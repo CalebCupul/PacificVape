@@ -7,6 +7,7 @@ var app = express();
 // Routes
 var user_routes = require('./routes/user');
 var categoria_routes = require('./routes/categoria');
+var producto_routes = require('./routes/producto');
 
 // Conexion a Bd
 dbConnection();
@@ -19,6 +20,7 @@ app.listen(port, function(){
 
 app.use('/api', user_routes);
 app.use('/api', categoria_routes);
+app.use('/api', producto_routes);
 
 module.exports = app;
 
