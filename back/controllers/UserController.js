@@ -83,7 +83,7 @@ function login(req,res){
                 })
             }else{
                 // Si no lo encuentra, el correo no existe
-                res.status(403).send({ message: 'El correo no existe' });
+                res.status(403).send({ message: 'Credenciales incorrectas' });
             }
         }
     });
