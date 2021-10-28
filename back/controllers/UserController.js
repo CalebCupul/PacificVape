@@ -2,48 +2,101 @@ var User = require('../models/user');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
+
 function registrar(req,res){
     var params = req.body;
-    var user = new User();
+    
+    if(req.files){
+        var imagen_path = req.files.imagen.path;
+        var name = imagen_path.split('\\');
+        var imagen_name = name[2]; 
+        var user = new User();
+
+        User.findOne({ email: params.email }, (err, user_data)=>{
+            if(err){
+                res.status(500).send({ error: 'Error en el servidor'});
+            }else{
+                // Si encuentra el correo en la base de datos
+                if(user_data){
+                    res.status(403).send({ message: 'El correo ya está en uso'});
+                }else{
+                    // Si no lo encuentra, primero hashea la contraseña y después crea el usuario
+                    // en la base de datos
+                    if(params.password){
+                        bcrypt.hash(params.password, null, null ,function(err,hash){
+                            if(hash){
+                                
+                                user.password = hash;
+                                user.nombres = params.nombres;
+                                user.apellidos = params.apellidos;
+                                user.email = params.email;
+                                user.role = params.role;
+                                user.imagen = imagen_name;
+    
+                                // Guarda el usuario en la base de datos
+                                user.save((err, user_save)=>{
+                                    if(err){
+                                        res.status(500).send({ error: 'No se ingreso el usuario'});
+                                    }else{
+                                        res.status(200).send({user:user_save});
+                                    }
+                                });
+                            }
+                        });
+                    }else{
+                        // Si no ingresa la contraseña
+                        res.status(403).send({ error: 'No ingreso la contraseña'});
+                    }
+    
+                }
+            }
+        });
+    }else{
+        var user = new User();
+        var default_img = 'null-user.jpg'
+
+        User.findOne({ email: params.email }, (err, user_data)=>{
+            if(err){
+                res.status(500).send({ error: 'Error en el servidor'});
+            }else{
+                // Si encuentra el correo en la base de datos
+                if(user_data){
+                    res.status(403).send({ message: 'El correo ya está en uso'});
+                }else{
+                    // Si no lo encuentra, primero hashea la contraseña y después crea el usuario
+                    // en la base de datos
+                    if(params.password){
+                        bcrypt.hash(params.password, null, null ,function(err,hash){
+                            if(hash){
+                                user.password = hash;
+                                user.nombres = params.nombres;
+                                user.apellidos = params.apellidos;
+                                user.email = params.email;
+                                user.role = params.role;
+                                user.imagen = default_img;
+    
+                                // Gurada el usuario en la base de datos
+                                user.save((err, user_save)=>{
+                                    if(err){
+                                        res.status(500).send({ error: 'No se ingreso el usuario'});
+                                    }else{
+                                        res.status(200).send({user:user_save});
+                                    }
+                                });
+                            }
+                        });
+                    }else{
+                        // Si no ingresa la contraseña
+                        res.status(403).send({ error: 'No ingreso la contraseña'});
+                    }
+    
+                }
+            }
+        });
+    }
 
     // Busca en la base de datos el email
-    User.findOne({ email: params.email }, (err, user_data)=>{
-        if(err){
-            res.status(500).send({ error: 'Error en el servidor'});
-        }else{
-            // Si encuentra el correo en la base de datos
-            if(user_data){
-                res.status(403).send({ message: 'El correo ya está en uso'});
-            }else{
-                // Si no lo encuentra, primero hashea la contraseña y después crea el usuario
-                // en la base de datos
-                if(params.password){
-                    bcrypt.hash(params.password, null, null ,function(err,hash){
-                        if(hash){
-                            user.password = hash;
-                            user.nombres = params.nombres;
-                            user.apellidos = params.apellidos;
-                            user.email = params.email;
-                            user.role = params.role;
-
-                            // Gurada el usuario en la base de datos
-                            user.save((err, user_save)=>{
-                                if(err){
-                                    res.status(500).send({ error: 'No se ingreso el usuario'});
-                                }else{
-                                    res.status(200).send({user:user_save});
-                                }
-                            });
-                        }
-                    });
-                }else{
-                    // Si no ingresa la contraseña
-                    res.status(403).send({ error: 'No ingreso la contraseña'});
-                }
-
-            }
-        }
-    });
+    
 
         
     

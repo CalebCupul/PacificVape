@@ -3,25 +3,36 @@ var Categoria = require('../models/categoria');
 function registrar(req,res){
     var data = req.body;
 
-    var categoria = new Categoria();
-    categoria.titulo = data.titulo;
-    categoria.descripcion = data.descripcion;
-
-    categoria.save( (err, categoria_save) =>{
+    Categoria.findOne({ titulo: data.titulo }, (err, categoria_data) =>{
         if(err){
-            // Si no llegaron los datos correctamente
-            res.status(500).send({ message: 'Error en el servidor'});
+            res.status(500).send({ error: 'Error en el servidor'});
         }else{
-            // Si llegaron los datos
-            if(categoria_save){
-                // Manda los datos de la categoria
-                res.status(200).send({ categoria: categoria_save });
+            if(categoria_data){
+                res.status(403).send({ message: 'No se ha podido registrar la categoría porque ya ha sido registrada anteriormente, verifique si la categoría ya está registrada en el sistema'});
             }else{
-                // Manda un mensaje de error
-                res.status(403).send({ message: 'La categoria no se pudo registrar'});
+                var categoria = new Categoria();
+                categoria.titulo = data.titulo;
+                categoria.descripcion = data.descripcion;
+
+                categoria.save( (err, categoria_save) =>{
+                    if(err){
+                        // Si no llegaron los datos correctamente
+                        res.status(500).send({ message: 'Error en el servidor'});
+                    }else{
+                        // Si llegaron los datos
+                        if(categoria_save){
+                            // Manda los datos de la categoria
+                            res.status(200).send({ categoria: categoria_save });
+                        }else{
+                            // Manda un mensaje de error
+                            res.status(403).send({ message: 'La categoria no se pudo registrar'});
+                        }
+                    }
+                });
             }
         }
-    })
+    });
+    
 }
 
 function obtener_categoria(req, res){

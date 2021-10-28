@@ -7,59 +7,69 @@ function registrar(req, res){
 
     //TODO: VERIFICAR SI EL TITULO YA 
     //EXISTE PARA NO REGISTRARLO NUEVAMENTE
+    Producto.findOne({ titulo: data.titulo }, (err, producto_data) => {
+       if(err){
+            res.status(500).send({ error: 'Error en el servidor'});
+       }else{
+           if(producto_data){
+            res.status(403).send({ message: 'El producto ya existe en el sistema'});
 
-    if(req.files){
-        var imagen_path = req.files.imagen.path;
-        var name = imagen_path.split('\\');
-        var imagen_name = name[2];
-
-        var producto = new Producto();
-        producto.marca = data.marca;
-        producto.titulo = data.titulo;
-        producto.descripcion = data.descripcion;
-        producto.imagen = imagen_name;
-        producto.precio_compra = data.precio_compra;
-        producto.precio_venta = data.precio_venta;
-        producto.stock = data.stock;
-        producto.id_categoria = data.id_categoria;
-
-        producto.save((err, producto_save) =>{
-            if(err){
-                res.status(500).send({ message: 'Error en el servidor'});
-            }else{
-                if(producto_save){
-                    res.status(200).send({ producto: producto_save});
-                }else{
-                    res.status(403).send({ message: 'No se pudo registrar el producto'});
-
-                }
-            }
-        });
+           }else{
+            if(req.files){
+                var imagen_path = req.files.imagen.path;
+                var name = imagen_path.split('\\');
+                var imagen_name = name[2];
         
-    }else{
-        var producto = new Producto();
-        producto.marca = data.marca;
-        producto.titulo = data.titulo;
-        producto.descripcion = data.descripcion;
-        producto.imagen = null;
-        producto.precio_compra = data.precio_compra;
-        producto.precio_venta = data.precio_venta;
-        producto.stock = data.stock;
-        producto.id_categoria = data.id_categoria;
-
-        producto.save((err, producto_save) =>{
-            if(err){
-                res.status(500).send({ message: 'Error en el servidor'});
+                var producto = new Producto();
+                producto.marca = data.marca;
+                producto.titulo = data.titulo;
+                producto.descripcion = data.descripcion;
+                producto.imagen = imagen_name;
+                producto.precio_compra = data.precio_compra;
+                producto.precio_venta = data.precio_venta;
+                producto.stock = data.stock;
+                producto.id_categoria = data.id_categoria;
+        
+                producto.save((err, producto_save) =>{
+                    if(err){
+                        res.status(500).send({ message: 'Error en el servidor'});
+                    }else{
+                        if(producto_save){
+                            res.status(200).send({ producto: producto_save});
+                        }else{
+                            res.status(403).send({ message: 'No se pudo registrar el producto'});
+                        }
+                    }
+                });
+                
             }else{
-                if(producto_save){
-                    res.status(200).send({ producto: producto_save});
-                }else{
-                    res.status(403).send({ message: 'No se pudo registrar el producto'});
-
-                }
+                var producto = new Producto();
+                producto.marca = data.marca;
+                producto.titulo = data.titulo;
+                producto.descripcion = data.descripcion;
+                producto.imagen = null;
+                producto.precio_compra = data.precio_compra;
+                producto.precio_venta = data.precio_venta;
+                producto.stock = data.stock;
+                producto.id_categoria = data.id_categoria;
+        
+                producto.save((err, producto_save) =>{
+                    if(err){
+                        res.status(500).send({ message: 'Error en el servidor'});
+                    }else{
+                        if(producto_save){
+                            res.status(200).send({ producto: producto_save});
+                        }else{
+                            res.status(403).send({ message: 'No se pudo registrar el producto'});
+                        }
+                    }
+                });
             }
-        });
-    }
+           }
+       }
+    });
+
+    
 
 }
 

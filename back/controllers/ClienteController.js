@@ -2,19 +2,35 @@ var Cliente = require('../models/Cliente');
 
 function registrar(req, res){
     let data = req.body;
-    var cliente = new Cliente();
-    cliente.nombres = data.nombres;
-    cliente.ine = data.ine;
-    cliente.correo = data.correo;
-    cliente.telefono = data.telefono;
 
-    cliente.save((err, cliente_save)=>{
-        if(cliente_save){
-            res.status(200).send({ cliente: cliente_save});
+    Cliente.findOne({ ine: data.ine }, (err, cliente_data) => {
+        if(err){
+            res.status(500).send({ error: 'Error en el servidor'});
         }else{
-            res.status(500).send(err);
+            if(cliente_data){
+                res.status(403).send({ message: 'Otro cliente ya existe con esa identificación, verifique en el sistema'});
+            }else{
+                var cliente = new Cliente();
+                cliente.nombres = data.nombres;
+                cliente.ine = data.ine;
+                cliente.correo = data.correo;
+                cliente.telefono = data.telefono;
+
+                cliente.save((err, cliente_save)=>{
+                    if(err){
+                        res.status(500).send({ message: 'Error en el servidor'});
+                    }else{
+                        if(cliente_save){
+                            res.status(200).send({ cliente: cliente_save});
+                        }else{
+                            res.status(500).send(err);
+                        }
+                    }
+                });
+            }
         }
-    });
+    })
+    
 }
 
 function editar(req,res){
