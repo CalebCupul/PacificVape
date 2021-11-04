@@ -5,32 +5,44 @@
         <div class="d-table-cell align-middle">
 
           <div class="text-center mt-4">
-            <h1 class="h2">Iniciar Sesión</h1>
+            <h1 class="h2">Iniciar sesión</h1>
           </div>
 
           <div class="card">
             <div class="card-body">
               <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-                <div class="text-center">
-                  <img src="../../../assets/img/logo.jpg" alt="Linda Miller" class="img-fluid rounded-circle" width="132" height="132" />
-                </div>
-                
-                  <div class="form-group">
-                    <label>Correo</label>
-                    <input class="form-control form-control-lg" type="email" placeholder="Ingrese su correo" #email="ngModel" name="email"  [(ngModel)]="user.email" required/>
-                  </div>
-                  <div class="form-group">
-                    <label>Contraseña</label>
-                    <input class="form-control form-control-lg" type="password"  placeholder="Ingrese su contraseña" #password="ngModel" name="password"  [(ngModel)]="user.password" required/>
-                    <small>
-                    <a href="pages-reset-password.html">¿Olvidaste tu contaseña?</a>
-                  </small>
-                  </div>
-                  
+                <div class="m-sm-4">
+                  <div *ngIf="data_error" class="alert alert-danger alert-dismissible" role="alert">
+                    <div class="alert-message">
+                      {{ data_error }}
+                    </div>
+                    <button type="button" (click)="close_alert()" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">x</span>
+                    </button>
 
-                  <div class="text-center mt-3">
-                    <button type="submit" class="btn btn-lg btn-primary">Ingresar</button>
                   </div>
+
+                    <div class="text-center">
+                      <img src="../../../assets/img/logo.jpg" alt="Linda Miller" class="img-fluid rounded-circle" width="132" height="132" />
+                    </div>
+                    
+                      <div class="form-group">
+                        <label>Correo</label>
+                        <input class="form-control form-control-lg" type="email" placeholder="Ingrese su correo" #email="ngModel" name="email"  [(ngModel)]="user.email" required/>
+                      </div>
+                      <div class="form-group">
+                        <label>Contraseña</label>
+                        <input class="form-control form-control-lg" type="password"  placeholder="Ingrese su contraseña" #password="ngModel" name="password"  [(ngModel)]="user.password" required/>
+                        <small>
+                        <a href="pages-reset-password.html">¿Olvidaste tu contaseña?</a>
+                      </small>
+                      </div>
+                      
+
+                      <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-lg btn-primary">Ingresar</button>
+                      </div>
+                </div>
                 
               </form>
               

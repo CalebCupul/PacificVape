@@ -11,8 +11,8 @@ export class UserService {
 
   public url;
   public user;
-  // public token;
-  // public identity;
+  public token: any;
+  public identity: any;
 
   constructor(
     private _http: HttpClient,
@@ -37,11 +37,25 @@ export class UserService {
 
    }
 
-   getToken(){
+   getToken():Observable<any>{
+    let token = localStorage.getItem('token');
+    if(token){
+      this.token = token;
+    }else{
+      this.token = null;
+    }
 
+    return this.token;
    }
 
-   getIdentyty(){
+   getIdentyty():Observable<any>{
+    let identity = JSON.parse(localStorage.getItem('identity')!);
+    if(identity){
+      this.token = identity;
+    }else{
+      this.token = null;
+    }
 
+    return this.identity;
    }
 }

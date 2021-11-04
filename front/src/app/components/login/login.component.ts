@@ -27,6 +27,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close_alert(){
+    this.data_error = '';
+  }
+
   login(loginForm:any){
     if(loginForm.valid){
 
@@ -39,24 +43,18 @@ export class LoginComponent implements OnInit {
             response =>{
               localStorage.setItem('identity', JSON.stringify(response.user));
               this._router.navigate(['dashboard']);
-
             },
             error =>{
               
-
             }
           )
         },
         error =>{
           this.data_error = error.error.message;
-
         }
       )
-      
     }else{
-
     }
-
   }
 
 }

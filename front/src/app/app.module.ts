@@ -21,7 +21,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    routing
+    routing,
     
   ],
   providers: [],
