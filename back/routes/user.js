@@ -9,6 +9,7 @@ var api = express.Router();
 
 api.post('/registrar', path, userController.registrar);
 api.post('/login', userController.login);
+api.get('/user/img/:img', userController.obtener_imagen);
 
 
 module.exports = api;

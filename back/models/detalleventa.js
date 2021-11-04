@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var DetalleVentaSchema = new Schema({
     id_producto: {type: Schema.ObjectId, ref: 'producto'},
-    cantidad: Number
+    cantidad: Number,
+    venta: {type: Schema.ObjectId, ref: 'venta'}
 
 });
 

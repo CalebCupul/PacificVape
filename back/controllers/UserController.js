@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
+var path = require('path');
 
 
 function registrar(req,res){
@@ -53,7 +54,6 @@ function registrar(req,res){
         });
     }else{
         var user = new User();
-        var default_img = 'null-user.jpg'
 
         User.findOne({ email: params.email }, (err, user_data)=>{
             if(err){
@@ -73,7 +73,7 @@ function registrar(req,res){
                                 user.apellidos = params.apellidos;
                                 user.email = params.email;
                                 user.role = params.role;
-                                user.imagen = default_img;
+                                user.imagen = null;
     
                                 // Gurada el usuario en la base de datos
                                 user.save((err, user_save)=>{
@@ -143,7 +143,21 @@ function login(req,res){
     
 }
 
+function obtener_imagen(req, res){
+    var img = req.params['img'];
+
+    if( img != "null" ){
+        let path_img = './uploads/users/' + img;
+        res.status(200).sendFile(path.resolve(path_img));
+    }else{
+        let path_img = './uploads/users/null-user.jpg';
+        res.status(200).sendFile(path.resolve(path_img));
+
+    }
+}
+
 module.exports = {
     registrar,
-    login
+    login,
+    obtener_imagen
 }

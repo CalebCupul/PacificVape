@@ -1,5 +1,6 @@
 var Producto = require('../models/producto');
 var fs = require('fs');
+var path = require('path');
 
 function registrar(req, res){
 
@@ -76,7 +77,7 @@ function registrar(req, res){
 function filtrar(req, res){
     var titulo = req.params['titulo'];
 
-    Producto.find({ titulo: new RegExp(titulo, 'i')}, (err, productos_filtrados) =>{
+    Producto.find({ titulo: new RegExp(titulo, 'i')}).populate('id_categoria').exec( (err, productos_filtrados) =>{
         if(err){
             res.status(500).send({ message: 'Error en el servidor'});
         }else{
@@ -212,11 +213,25 @@ function actualizar_stock(req, res){
     })
 }
 
+function obtener_imagen(req, res){
+    var img = req.params['img'];
+
+    if( img != "null" ){
+        let path_img = './uploads/productos/' + img;
+        res.status(200).sendFile(path.resolve(path_img));
+    }else{
+        let path_img = './uploads/productos/default.jpg';
+        res.status(200).sendFile(path.resolve(path_img));
+
+    }
+}
+
 module.exports = {
     registrar,
     filtrar,
     editar,
     obtener_producto,
     eliminar,
-    actualizar_stock
+    actualizar_stock,
+    obtener_imagen
 }

@@ -13,6 +13,7 @@ api.put('/producto/editar/:id/:img', path, productoController.editar);
 api.get('/producto/registro/:id', productoController.obtener_producto);
 api.delete('/producto/:id', productoController.eliminar);
 api.put('/producto/stock/:id', productoController.actualizar_stock);
+api.get('/producto/img/:img', productoController.obtener_imagen);
 
 
 
