@@ -24,10 +24,12 @@ export class ProductoCreateComponent implements OnInit {
 
   constructor(
     private _productoService: ProductoService
-  ) { }
+  ) { 
+    this.producto = new Producto('','','','','',1,1,1,'');
+}
 
   ngOnInit(): void {
-    this.producto = new Producto('','','','','',1,1,1,'')
+    
     this._productoService.get_categorias().subscribe(
       response =>{
         this.categorias = response.categorias;
@@ -59,6 +61,7 @@ export class ProductoCreateComponent implements OnInit {
           });
           this.producto = new Producto('','','','','',1,1,1,'');
           this.imgSelect = '../../../../assets/img/default.jpg';
+          productoForm.reset();
         },
         error =>{
           Swal.fire({

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 import { routing } from './app.routing';
@@ -13,6 +14,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProductoIndexComponent } from './components/productos/producto-index/producto-index.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ProductoCreateComponent } from './components/productos/producto-create/producto-create.component';
+import { ProductoEditComponent } from './components/productos/producto-edit/producto-edit.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { ProductoCreateComponent } from './components/productos/producto-create/
     DashboardComponent,
     ProductoIndexComponent,
     SidebarComponent,
-    ProductoCreateComponent
+    ProductoCreateComponent,
+    ProductoEditComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,7 @@ import { ProductoCreateComponent } from './components/productos/producto-create/
     HttpClientModule,
     FormsModule,
     routing,
+    NgxPaginationModule
     
   ],
   providers: [],

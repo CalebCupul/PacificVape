@@ -14,11 +14,8 @@
             </div>
 
             <ul class="sidebar-nav">
-                <li class="sidebar-header">
-                    Main
-                </li>
-                <li class="sidebar-item active">
-                    <a href="#dashboards" data-toggle="collapse" class="sidebar-link">
+                <li class="sidebar-item" routerLinkActive="sidebar-item active">
+                    <a [routerLink]="['/dashboard']" data-toggle="collapse" class="sidebar-link">
                         <i class="align-middle mr-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboards</span>
                     </a>
                     <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-parent="#sidebar">
@@ -28,9 +25,9 @@
                     </ul>
                 </li>
                 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="documentation.html">
-                        <i class="align-middle mr-2 fas fa-fw fa-book"></i> <span class="align-middle">Getting Started</span>
+                <li class="sidebar-item" routerLinkActive="sidebar-item active">
+                    <a class="sidebar-link" [routerLink]="['/productos']">
+                        <i class="align-middle mr-2 fas fa-fw fa-book"></i> <span class="align-middle">Productos</span>
                     </a>
                 </li>
                 
