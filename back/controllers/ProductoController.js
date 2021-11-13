@@ -97,11 +97,13 @@ function editar(req, res){
     var data = req.body;
     var img = req.params['img'];
 
-    if(req.files){
+    if(req.files.imagen){
         // Se borra la imagen anterior
-        fs.unlink('./uploads/productos/' + img, (err) =>{
-            if(err) throw err;
-        });
+        if(img || img != null || img != undefined){
+            fs.unlink('./uploads/productos/' + img, (err) =>{
+                if(err) throw err;
+            });
+        }
 
 
         // Se extrae la ubicacion de la imagen,
@@ -118,7 +120,6 @@ function editar(req, res){
             imagen: imagen_name,
             precio_compra: data.precio_compra,
             precio_venta: data.precio_venta,
-            stock: data.stock,
             id_categoria: data.id_categoria
         }, (err, producto_edit) =>{
             if(err){
@@ -140,7 +141,6 @@ function editar(req, res){
             imagen: null,
             precio_compra: data.precio_compra,
             precio_venta: data.precio_venta,
-            stock: data.stock,
             id_categoria: data.id_categoria
         }, (err, producto_edit) =>{
             if(err){
