@@ -20,7 +20,6 @@ export class ProductoCreateComponent implements OnInit {
   public file: any;
   public imgSelect: any;
   public categorias: any;
-  public success_message: any;
 
   constructor(
     private _productoService: ProductoService

@@ -119,7 +119,7 @@ export class ProductoIndexComponent implements OnInit {
           'El producto se eliminó correctamente',
           'success'
         )
-        // Elimina el prodcuto
+        // Elimina el producto
         this._productoService.eliminar_producto(_id).subscribe(
           response =>{
             // Actualiza la tabla después de borrar el producto
