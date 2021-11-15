@@ -71,8 +71,30 @@ function eliminar(req,res){
 
 }
 
+function filtrar(req,res){
+    Cliente.find((err, clientes_data) =>{
+        if(clientes_data){
+            res.status(200).send({clientes: clientes_data});
+        }else{
+            res.status(403).send({message: "No hay clientes en la base de datos"});
+        }
+    })
+}
+
+function get_cliente(req,res){
+    var id = req.params['id'];
+
+    Cliente.findById(id,(err, cliente_data)=>{
+        if(cliente_data){
+            res.status(200).send({cliente: cliente_data});
+        }
+    })
+}
+
 module.exports = {
     registrar,
     editar,
-    eliminar
+    eliminar,
+    filtrar,
+    get_cliente
 }
