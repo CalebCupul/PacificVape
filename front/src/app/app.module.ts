@@ -18,6 +18,9 @@ import { ProductoEditComponent } from './components/productos/producto-edit/prod
 import { ClienteIndexComponent } from './components/clientes/cliente-index/cliente-index.component';
 import { ClienteCreateComponent } from './components/clientes/cliente-create/cliente-create.component';
 import { ClienteEditComponent } from './components/clientes/cliente-edit/cliente-edit.component';
+import { UserIndexComponent } from './components/users/user-index/user-index.component';
+import { UserCreateComponent } from './components/users/user-create/user-create.component';
+import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { ClienteEditComponent } from './components/clientes/cliente-edit/cliente
     ProductoEditComponent,
     ClienteIndexComponent,
     ClienteCreateComponent,
-    ClienteEditComponent
+    ClienteEditComponent,
+    UserIndexComponent,
+    UserCreateComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,

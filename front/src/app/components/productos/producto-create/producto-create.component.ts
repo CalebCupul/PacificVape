@@ -58,6 +58,7 @@ export class ProductoCreateComponent implements OnInit {
             title: 'Hecho!',
             text: 'El producto se registró correctamente'
           });
+          console.log(response)
           this.producto = new Producto('','','','','',1,1,1,'');
           this.imgSelect = '../../../../assets/img/default.jpg';
           productoForm.reset();

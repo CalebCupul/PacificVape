@@ -29,13 +29,13 @@
     
                 <div class="header">
                     <h1 class="header-title">
-                        Registro de productos
+                        Registrar usuario
                     </h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a [routerLink]="['/productos']">Productos</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Registro</li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/usuarios']">Usuarios</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Editar usuario</li>
                         </ol>
                     </nav>
                 </div>
@@ -55,45 +55,38 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form #productoForm="ngForm" (ngSubmit)="onSubmit(productoForm)">
+                                        <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
                                             <div class="row mt-4">
                                                 <div class="col-lg-8">
                                                     <div class="row">
-                                                        <div class="col-lg-10 form-group">
-                                                            <label><b>Nombre del producto</b></label>
-                                                            <input type="text" class="form-control" autocomplete="new-text" placeholder="Nombre del producto" name="titulo" [(ngModel)]="titulo" required>
+                                                        <div class="col-lg-6 form-group">
+                                                            <label><b>Nombre</b></label>
+                                                            <input type="text" class="form-control" autocomplete="new-text" placeholder="Nombre completo" name="nombre" [(ngModel)]="user.nombre" required>
                                                         </div>
-                                                        <div class="col-lg-8 form-group">
-                                                            <label><b>Marca</b></label>
-                                                            <input type="text" name="" class="form-control" placeholder="Marca del producto" autocomplete="new-text" name="marca" [(ngModel)]="producto.marca" required>
-                                                        </div>
-                                                        
-                                                        <div class="col-lg-2 form-group">
-                                                            <label><b>Stock</b></label>
-                                                            <input type="number" name="" class="form-control" autocomplete="new-text" name="stock" [(ngModel)]="producto.stock" required>
+                                                        <div class="col-lg-6 form-group">
+                                                            <label><b>Correo</b></label>
+                                                            <input type="email"class="form-control" placeholder="Correo del usuario" autocomplete="new-text" name="email" [(ngModel)]="user.email" required>
                                                         </div>
                                                         
-                                                        <div class="col-lg-5 form-group">
-                                                            <label><b>Precio compra</b></label>
-                                                            <input type="number" name="" class="form-control" autocomplete="new-text"  name="precio_compra" [(ngModel)]="producto.precio_compra" required>
+                                                        <div class="col-lg-6 form-group">
+                                                            <label><b>Nueva contraseña</b></label>
+                                                            <input type="password" class="form-control" placeholder="Ingrese nueva contraseña" autocomplete="new-text" name="password" [(ngModel)]="password">
                                                         </div>
-                                                        <div class="col-lg-5 form-group">
-                                                            <label><b>Precio venta</b></label>
-                                                            <input type="number" name="" class="form-control" autocomplete="new-text"  name="precio_venta" [(ngModel)]="producto.precio_venta" required>
-                                                        </div>
-                                                        <div class="col-lg-10 form-group">
-                                                            <label><b>Categoría</b></label>
-                                                            <select class="form-select" name="id_categoria" [(ngModel)]="producto.categoria" required>
-                                                                <option value="" selected disabled>Selecciona una categoría</option>
-                                                                <option value="{{ item._id }}" *ngFor="let item of categorias">{{ item.titulo }}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-lg-3 col-3 form-group">
-                                                            <label><b>Descripción</b></label>
-                                                            <textarea name="" id="editor" rows="3" placeholder="Breve descripción" name="descripcion" [(ngModel)]="producto.descripcion" required></textarea>
+                                                        
+                                                        <div class="col-lg-6 form-group">
+                                                            <label><b>Teléfono</b></label>
+                                                            <input type="number" class="form-control" placeholder="Teléfono" autocomplete="new-text" name="telefono" [(ngModel)]="user.telefono" required>
                                                         </div>
                                                         <div class="col-lg-12 form-group">
-                                                            <button class="btn btn-primary btn-lg" type="submit">Registrar</button>
+                                                            <label><b>Rol de usuario</b></label>
+                                                            <select class="form-select" name="role" [(ngModel)]="user.role" required>
+                                                                <option value="" selected disabled>Selecciona un rol</option>
+                                                                <option value="ADMIN">Administrador</option>
+                                                                <option value="USUARIO">Usuario</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-12 form-group">
+                                                            <button class="btn btn-primary btn-lg" type="submit" [disabled]="!userForm.valid">Registrar</button>
                                                         </div>
         
                                                     </div>
@@ -102,29 +95,12 @@
                                                     <div class="row">
                                                         <div class="col-lg-12 form-group">
                                                             <div class="text-center">
-                                                                <label><b>Portada</b></label>
+                                                                <label><b>Imagen</b></label>
                                                                 <br>
-                                                                <img alt="Chris Wood" [src]="imgSelect || '../../../../assets/img/default.jpg'" class="rounded-circle img-responsive mt-2" width="128" height="128">
+                                                                <img alt="Chris Wood" [src]="imgSelect || url+'user/img/'+user.imagen" class="rounded-circle img-responsive mt-2" width="128" height="128">
                                                                 <div class="mt-2">
-                                                                    <input type="file" class="btn btn-primary mt-2" style="width: 100% !important" (change)="imgSelected($event)">
+                                                                    <input type="file" class="btn btn-primary mt-2" style="width: 100% !important" (change)="imgSelected($event)" required>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 form-group text-center">
-                                                            <label><b>Galería</b></label>
-                                                            <br>
-                                                            <button id="btn_add" class="btn btn-success">Nueva imagen</button>
-                                                            <hr>
-                                                            <div class="row">
-                                                            <table id="detalles" class="table table-sm">
-                                                                    <thead>
-                                                                        <th>Opcion</th>
-                                                                        <th>Archivo</th>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        
-                                                                    </tbody>
-                                                            </table>
                                                             </div>
                                                         </div>
                                                     </div>

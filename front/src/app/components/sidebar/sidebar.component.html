@@ -36,6 +36,12 @@
                         <i class="align-middle mr-2 fas fa-fw fa-book"></i> <span class="align-middle">Clientes</span>
                     </a>
                 </li>
+
+                <li class="sidebar-item" *ngIf="identity.role == 'ADMIN'" routerLinkActive="sidebar-item active">
+                    <a class="sidebar-link" [routerLink]="['/usuarios']">
+                        <i class="align-middle mr-2 fas fa-fw fa-book"></i> <span class="align-middle">Usuarios</span>
+                    </a>
+                </li>
                 
             </ul>
         </div>
