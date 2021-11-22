@@ -4,7 +4,7 @@ export class Cliente{
         public nombres: string,
         public identificacion: string,
         public correo: string,
-        public telefono: number
+        public telefono: number | null
     ){
 
     }

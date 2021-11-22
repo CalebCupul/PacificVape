@@ -32,14 +32,14 @@
     
                 <div class="header">
                     <h1 class="header-title">
-                        Mis productos
+                        Mis ventas
                     </h1>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Productos</li>
+                        <li class="breadcrumb-item active" aria-current="page">Ventas</li>
                       </ol>
                 </div>
-    
+                
                 <div class="row">
                     <!-- <div  class="col-12 col-xl-12">
                         <div class="alert alert-success alert-outline alert-dismissible" role="alert">
@@ -60,10 +60,10 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-lg-5">
-                                        <h5 class="card-title mt-3">Filtrar productos</h5>
-                                        <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                                        <h5 class="card-title mt-3">Filtrar ventas</h5>
+                                        <form #searchForm="ngForm">
                                             <div class="input-group date mb-4" id="datetimepicker-minimum" data-target-input="nearest">
-                                                <input type="text" placeholder="Buscar producto" class="form-control datetimepicker-input" name="filtro" [(ngModel)]="filtro">
+                                                <input type="text" placeholder="Buscar venta" class="form-control datetimepicker-input">
                                                 
                                                 <div class="input-group-append">
                                                     <button class="input-group-text" type="submit"><i class="fa fa-search"></i></button>
@@ -75,47 +75,32 @@
                                     </div>
                                     <div class="col-lg-2 align-self-end mb-3" >
                                         <div class="btn-group ">
-                                            <button type="button" class="btn mb-2 btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Opciones <i class="fas fa-caret-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
-                                                <a class="dropdown-item" [routerLink]="['/producto/registrar']">Registrar producto</a>
-                                                <a class="dropdown-item" data-toggle="modal" data-target="#modal-data-categoria">Ver categorias</a>
-                                                <a class="dropdown-item" data-toggle="modal" data-target="#modal-save-categoria">Registrar Categoria</a>
-                                            </div>
+                                            <button type="button" class="btn mb-2 btn-primary"[routerLink]="['/venta/registrar']" >Nueva venta</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                             <table class="table table-striped table-hover text-center" >
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>Imagen</th>
-                                        <th>Producto</th>
-                                        <th>Marca</th>
-                                        <th>Precio de Compra</th>
-                                        <th>Precio de Venta</th>
-                                        <th>Existencias</th>
+                                        <th>Empleado</th>
+                                        <th>Cliente</th>
+                                        <th>Fecha</th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let item of productos | paginate: { itemsPerPage: 10, currentPage: p }; let idx = index" >
+                                <tbody *ngFor="let item of ventas | paginate: { itemsPerPage: 10, currentPage: p }; let idx = index" >
                                     
-                                        <td><img [src]="url + 'producto/img/' + item.imagen" width="120" height="120" class="r-2" alt="Avatar"> </td>
-                                        <td class="align-middle">{{ item.titulo }}</td>
-                                        <td class="align-middle">{{ item.marca }}</td>
-                                        <td class="align-middle"> $ {{ item.precio_compra }} </td>
-                                        <td class="align-middle"> $ {{ item.precio_venta }} </td>
-                                        <td class="align-middle"> {{ item.stock }} </td>
+                                    <td class="align-middle">{{ item.id_user.nombre }}</td>    
+                                    <td class="align-middle">{{ item.id_cliente.nombres }}</td>
+                                    <td class="align-middle">{{ item.fecha | date: 'MMM d, y, h:mm:ss a'}}</td>
                                         <td class="align-middle">
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-primary rounded-circle mr-1" title="Editar" [routerLink]="['/producto/registro', item._id]"><i class="fas fa-pencil-alt"></i></button>
                                                 <button type="button" class="btn btn-danger rounded-circle mr-1" title="Eliminar" (click)="eliminar_registro(item._id)"><i class="fas fa-trash-alt" ></i></button>
-                                                <button type="button" class="btn btn-dark rounded-circle mr-1" title="Existencias" data-toggle="modal" [attr.data-target]="'#modal-stock'+idx" (click)="get_id(item._id)"><i class="fas fa-box"></i></button>
+                                                <button type="button" class="btn btn-primary rounded-circle mr-1" title="Detalle de venta" [routerLink]="['/venta/', item._id]"><i class="fas fa-file-invoice-dollar fa-lg"></i></button>
                                             </div>
                                         </td>
-                                        <!--MODAL EDITAR STOCK-->
+                                        <!-- MODAL EDITAR STOCK
                                         <div class="modal fade" [attr.id]="'modal-stock'+idx" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
                                             <form #stockForm="ngForm">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -140,7 +125,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <!--MODAL EDITAR STOCK-->
+                                        MODAL EDITAR STOCK -->
 
                                         
                                    
@@ -153,69 +138,7 @@
                         <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </div>
                 </div>
-    
-                <!--MODAL AGREGAR CATEGORIA-->
-                <div class="modal fade" id="modal-save-categoria" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
-                    <form #categoriaForm="ngForm">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Registrar Categoría</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body m-3">
-                                   <div class="form-grow mb-3">
-                                       <input type="text" class="form-control" placeholder="Nombre de la categoría" required  name="nombre_categoria" [(ngModel)]="nombre_categoria">
-                                   </div>
-                                   <div class="form-group">
-                                       <textarea class="form-control" placeholder="Breve descripción" required  name="descripcion_categoria" [(ngModel)]="descripcion_categoria"></textarea>
-                                   </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" data-target="#modal-data-categoria">Ver categorías</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="guardar_categoria(categoriaForm)">Registrar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!--MODAL AGREGAR CATEGORIA-->
-    
-                <!--MODAL LISTAR CATEGORIA-->
-                <div class="modal fade" id="modal-data-categoria" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollablea" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Listado de categorias</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body m-3">
-                                <table class="table table-striped table-hover table-sm">
-                                    <thead class="thead-dark">
-                                        <th>Nombre</th>
-                                    </thead>
-                                    <tbody *ngFor="let item of categorias">
-                                        <td>{{ item.titulo }}</td>
-                                    </tbody>
-                                </table>
-                                
-                               
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#modal-save-categoria">Registrar categoría</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--MODAL LISTAR CATEGORIA-->
-                
-    
+
             </div>
         </main>
         

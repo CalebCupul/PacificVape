@@ -17,7 +17,7 @@ export class ClienteCreateComponent implements OnInit {
   constructor(
     private _clienteService: ClienteService
   ) { 
-    this.cliente = new Cliente('','','','',1);
+    this.cliente = new Cliente('','','','',null);
   }
 
   ngOnInit(): void {
@@ -37,6 +37,7 @@ export class ClienteCreateComponent implements OnInit {
             title: 'Hecho!',
             text: 'El cliente se registró correctamente'
           });
+          this.cliente = new Cliente('','','','',null);
         },
         error =>{
           Swal.fire({

@@ -44,8 +44,27 @@
                     <div class="col-12 col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mt-3">Filtrar usuarios</h5>
-                                <button class="btn btn-primary" [routerLink]="['/usuarios/registrar']">Nuevo usuario</button>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <h5 class="card-title mt-3">Filtrar usuarios</h5>
+                                        <form #searchForm="ngForm">
+                                            <div class="input-group date mb-4" id="datetimepicker-minimum" data-target-input="nearest">
+                                                <input type="text" placeholder="Buscar usuario" class="form-control datetimepicker-input">
+                                                
+                                                <div class="input-group-append">
+                                                    <button class="input-group-text" type="submit"><i class="fa fa-search"></i></button>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-2 align-self-end mb-3" >
+                                        <div class="btn-group ">
+                                            <button type="button" class="btn mb-2 btn-primary" [routerLink]="['/usuarios/registrar']">Nuevo usuario</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <table class="table table-striped table-hover text-center" >
                                 <thead class="thead-dark">
