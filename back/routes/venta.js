@@ -5,6 +5,8 @@ var api = express.Router();
 
 api.post('/venta/registrar', ventaController.registrar);
 api.get('/venta/datos/:id', ventaController.datos_venta);
+api.get('/venta', ventaController.filtrar);
+api.get('/venta/:id', ventaController.detalle_venta);
 
 
 

@@ -48,13 +48,15 @@ function registrar(req, res){
 function datos_venta(req, res){
     var id = req.params['id'];
 
-    Venta.findById(id, (err, data_venta) =>{
+    Venta.findById(id).populate('id_cliente').populate('id_user').exec((err, data_venta) =>{
         if(data_venta){
-            DetalleVenta.find({ venta: id}, (err, data_detalle) =>{
+            DetalleVenta.find({venta: data_venta._id}).populate('id_producto').exec({ id_venta: id}, (err, data_detalle) =>{
                 if(data_detalle){
                     res.status(200).send({
-                            venta: data_venta,
-                            detalles: data_detalle
+                            data: {
+                                venta: data_venta,
+                                detalles: data_detalle
+                            }
                     });
                 }
             });
@@ -62,7 +64,31 @@ function datos_venta(req, res){
     });
 }
 
+function filtrar(req, res){
+    Venta.find().populate('id_cliente').populate('id_user').exec((err, data_venta) =>{
+        if(data_venta){
+            res.status(200).send({ ventas: data_venta});
+        }else{
+            res.status(404).send({ message: "No existe esa venta"});
+        }
+    });
+}
+
+function detalle_venta(req, res){
+    var id = req.params['id'];
+
+    DetalleVenta.find({venta: id}).populate('id_producto').exec((err, data_detalle) =>{
+        if(data_detalle){
+            res.status(200).send({ detalle_venta: data_detalle});
+        }else{
+            res.status(404).send({ message: "No existe esa venta"});
+        }
+    });
+}
+
 module.exports = {
     registrar,
-    datos_venta
+    datos_venta,
+    filtrar,
+    detalle_venta
 }
