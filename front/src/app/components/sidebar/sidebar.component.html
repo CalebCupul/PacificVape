@@ -4,13 +4,13 @@
       <svg>
         <use xlink:href="#ion-ios-pulse-strong"></use>
       </svg>
-      Spark
+      <h4 class="text-center" >PacificVape</h4>
     </a>
         <div class="sidebar-content">
             <div class="sidebar-user">
-                <img src="img/avatars/avatar.jpg" class="img-fluid rounded-circle mb-2" alt="Linda Miller" />
-                <div class="font-weight-bold">Linda Miller</div>
-                <small>Front-end Developer</small>
+                <img [src]="url + '/user/img/' + identity.imagen" class="img-fluid rounded-circle mb-2" width="200" height="200" alt="Avatar">
+                <div class="font-weight-bold"> {{identity.nombre}}</div>
+                <small>{{ identity.role }}</small>
             </div>
 
             <ul class="sidebar-nav">

@@ -127,17 +127,19 @@ export class VentaCreateComponent implements OnInit {
         let data = {
           id_cliente: ventaForm.value.idcliente,
           id_user: this.identity._id,
-          detalles: this.data_detalle
+          detalles: this.data_detalle,
+          total: this.total
         }
         Swal.fire({
           icon: 'success',
           title: 'Hecho!',
           text: 'La venta se registró correctamente'
         });
+        console.log(data);
 
         this._ventaService.save_data(data).subscribe(
           response =>{
-            this._router.navigate(['ventas']);
+            this._router.navigate(['venta']);
           },
           error=>{
             console.log(error);

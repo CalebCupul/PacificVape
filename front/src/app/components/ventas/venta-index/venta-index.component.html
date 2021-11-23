@@ -96,7 +96,6 @@
                                     <td class="align-middle">{{ item.fecha | date: 'MMM d, y, h:mm:ss a'}}</td>
                                         <td class="align-middle">
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-danger rounded-circle mr-1" title="Eliminar" (click)="eliminar_registro(item._id)"><i class="fas fa-trash-alt" ></i></button>
                                                 <button type="button" class="btn btn-primary rounded-circle mr-1" title="Detalle de venta" [routerLink]="['/venta/', item._id]"><i class="fas fa-file-invoice-dollar fa-lg"></i></button>
                                             </div>
                                         </td>

@@ -41,8 +41,5 @@ export class VentaIndexComponent implements OnInit {
     
   }
 
-  eliminar_registro(_id: any){
-
-  }
 
 }

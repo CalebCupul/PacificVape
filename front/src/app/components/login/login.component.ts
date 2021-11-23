@@ -22,9 +22,13 @@ export class LoginComponent implements OnInit {
     private _router: Router
   ) {
     this.user = new User('','','',1,'','','');
+    this.identity = this._userService.getIdentity();
    }
 
   ngOnInit(): void {
+    if(this.identity){
+      this._router.navigate(['dashboard']);
+    }
   }
 
   close_alert(){

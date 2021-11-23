@@ -3,6 +3,7 @@ export class Venta{
         public _id:string,
         public id_cliente:string,
         public id_user:string,
+        public total:number
 
     ){
 

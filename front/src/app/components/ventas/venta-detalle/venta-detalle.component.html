@@ -16,7 +16,8 @@
                     </h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a [routerLink]="['/dashboard']" >Dashboard</a></li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/venta']">Ventas</a></li>
                             <li class="breadcrumb-item"><a>Detalles</a></li>
                         </ol>
                     </nav>
@@ -61,7 +62,7 @@
                                 <h5 class="card-title">Detalles de venta</h5>
     
                             </div>
-                            <table class="table table-striped table-hover">
+                            <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th class="text-center">Imagen</th>
@@ -72,18 +73,22 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngFor="let item of detalle_venta">
-                                    <td class="align-middle text-center"><img [src]="url + 'producto/img/' + item.id_producto.imagen" width="120" height="120" class="r-2" alt="Avatar"></td>
-                                    <td class="align-middle text-center">{{item.id_producto.titulo}}</td>
-                                    <td class="align-middle text-center">${{item.id_producto.precio_venta}}</td>
-                                    <td class="align-middle text-center">{{item.cantidad}}</td>
-                                    <td class="align-middle text-center">${{(item.id_producto.precio_venta) * (item.cantidad)}}</td>
+                                    <tr>
+                                        <td class="align-middle text-center"><img [src]="url + 'producto/img/' + item.id_producto.imagen" width="120" height="120" class="r-2" alt="Avatar"></td>
+                                        <td class="align-middle text-center">{{item.id_producto.titulo}}</td>
+                                        <td class="align-middle text-center">$ {{item.id_producto.precio_venta}}</td>
+                                        <td class="align-middle text-center">{{item.cantidad}}</td>
+                                        <td class="align-middle text-center">$ {{(item.id_producto.precio_venta) * (item.cantidad)}}</td>
+                                    </tr>
                                 </tbody>
                                 <tfoot>
-                                    <td class="align-middle text-center"><b>Total</b></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="align-middle text-center"><strong>${{(total)}}</strong></td>
+                                    <tr>
+                                        <td class="align-middle text-center"><b>Total</b></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="align-middle text-center"><strong>$ {{venta.total}}</strong></td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>

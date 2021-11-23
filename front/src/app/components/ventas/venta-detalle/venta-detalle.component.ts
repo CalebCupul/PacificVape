@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VentaService } from 'src/app/services/venta.service';
 import { GLOBAL } from 'src/app/services/GLOBALS';
-import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
 @Component({
   selector: 'app-venta-detalle',
@@ -15,7 +14,7 @@ export class VentaDetalleComponent implements OnInit {
   public venta: any;
   public detalle_venta: any;
   public url: any;
-  public total: any = 0;
+  public total: any;
 
   constructor(
     private _route: ActivatedRoute,
@@ -32,6 +31,8 @@ export class VentaDetalleComponent implements OnInit {
         Response =>{
           this.venta = Response.data.venta;
           this.detalle_venta = Response.data.detalles;
+          console.log(this.venta);
+          
         },
         error =>{
           console.log('error');
@@ -39,5 +40,7 @@ export class VentaDetalleComponent implements OnInit {
       );
     });
   }
+
+
 
 }
