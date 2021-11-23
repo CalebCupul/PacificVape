@@ -7,6 +7,7 @@ function registrar(req, res){
     var venta = new Venta();
     venta.id_cliente = data.id_cliente;
     venta.id_user = data.id_user;
+    venta.total = data.total;
 
     venta.save((err, venta_save) =>{
         if(err){
