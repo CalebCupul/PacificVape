@@ -11,7 +11,7 @@ api.post('/registrar', path, userController.registrar);
 api.post('/login', userController.login);
 api.get('/user/img/:img', userController.obtener_imagen);
 api.get('/usuarios', userController.filtrar);
-api.put('/user/editar/:id/:img', path, userController.editar);
+api.put('/usuarios/editar/:id/:img', path, userController.editar);
 api.get('/user/:id', userController.get_user);
 api.delete('/user/eliminar/:id', userController.eliminar);
 

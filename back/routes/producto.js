@@ -8,7 +8,7 @@ var path = multipart({ uploadDir: './uploads/productos' });
 var api = express.Router();
 
 api.post('/producto/registrar', path, productoController.registrar);
-api.get('/productos/:titulo?', productoController.filtrar);
+api.get('/producto/:titulo?', productoController.filtrar);
 api.put('/producto/editar/:id/:img', path, productoController.editar);
 api.get('/producto/registro/:id', productoController.obtener_producto);
 api.delete('/producto/:id', productoController.eliminar);

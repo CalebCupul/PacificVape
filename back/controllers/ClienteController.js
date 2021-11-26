@@ -72,13 +72,21 @@ function eliminar(req,res){
 }
 
 function filtrar(req,res){
-    Cliente.find((err, clientes_data) =>{
-        if(clientes_data){
-            res.status(200).send({clientes: clientes_data});
+
+    var nombres = req.params['nombres'];
+
+    Cliente.find({ nombres: new RegExp(nombres, 'i')}, (err, clientes_filtrados) =>{
+        if(err){
+            res.status(500).send({ message: 'Error en el servidor'});
         }else{
-            res.status(403).send({message: "No hay clientes en la base de datos"});
+            if(clientes_filtrados){
+                res.status(200).send({ clientes: clientes_filtrados});
+            }else{
+                res.status(403).send({ message: 'No existe ningún registro con ese nombre'});
+
+            }
         }
-    })
+    });
 }
 
 function get_cliente(req,res){
