@@ -14,38 +14,40 @@
             </div>
 
             <ul class="sidebar-nav">
+
                 <li class="sidebar-item" routerLinkActive="sidebar-item active">
-                    <a [routerLink]="['/dashboard']" data-toggle="collapse" class="sidebar-link">
-                        <i class="align-middle mr-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboards</span>
+                    <a class="sidebar-link" [routerLink]="['/dashboard']">
+                        <i class="align-middle mr-2 bi bi-house-fill"></i> <span class="align-middle">Dashboard</span>
                     </a>
-                    <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-parent="#sidebar">
-                        <li class="sidebar-item"><a class="sidebar-link" href="dashboard-default.html">Default</a></li>
-                        <li class="sidebar-item"><a class="sidebar-link" href="dashboard-analytics.html">Analytics</a></li>
-                        <li class="sidebar-item active"><a class="sidebar-link" href="dashboard-e-commerce.html">E-commerce</a></li>
-                    </ul>
                 </li>
                 
                 <li class="sidebar-item" routerLinkActive="sidebar-item active">
-                    <a class="sidebar-link" [routerLink]="['/productos']">
-                        <i class="align-middle mr-2 fas fa-fw fa-book"></i> <span class="align-middle">Productos</span>
+                    <a class="sidebar-link" [routerLink]="['/producto']">
+                        <i class="align-middle mr-2 bi bi-box-seam"></i> <span class="align-middle">Productos</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item" routerLinkActive="sidebar-item active">
-                    <a class="sidebar-link" [routerLink]="['/clientes']">
-                        <i class="align-middle mr-2 fas fa-fw fa-book"></i> <span class="align-middle">Clientes</span>
+                    <a class="sidebar-link" [routerLink]="['/cliente']">
+                        <i class="align-middle mr-2 bi bi-person-video2"></i> <span class="align-middle">Clientes</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item" *ngIf="identity.role == 'ADMIN'" routerLinkActive="sidebar-item active">
                     <a class="sidebar-link" [routerLink]="['/usuarios']">
-                        <i class="align-middle mr-2 fas fa-fw fa-book"></i> <span class="align-middle">Usuarios</span>
+                        <i class="align-middle mr-2 bi bi-people-fill"></i> <span class="align-middle">Usuarios</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item" routerLinkActive="sidebar-item active">
                     <a class="sidebar-link" [routerLink]="['/venta']">
-                        <i class="align-middle mr-2 fas fa-fw fa-book"></i> <span class="align-middle">Ventas</span>
+                        <i class="align-middle mr-2 bi bi-graph-up-arrow"></i> <span class="align-middle">Ventas</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item" routerLinkActive="sidebar-item active">
+                    <a class="sidebar-link" (click)="logout()">
+                        <i class="align-middle mr-2 bi bi-box-arrow-right"></i><span class="align-middle">Cerrar sesión</span>
                     </a>
                 </li>
                 

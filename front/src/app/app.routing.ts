@@ -18,15 +18,15 @@ import { VentaDetalleComponent } from "./components/ventas/venta-detalle/venta-d
 const appRoute : Routes = [
     { path: '', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'productos', component: ProductoIndexComponent },
+    { path: 'producto', component: ProductoIndexComponent },
     { path: 'producto/registrar', component: ProductoCreateComponent },
     { path: 'producto/registro/:id', component: ProductoEditComponent },
-    { path: 'clientes', component: ClienteIndexComponent },
+    { path: 'cliente', component: ClienteIndexComponent },
     { path: 'cliente/registrar', component: ClienteCreateComponent },
     { path: 'cliente/editar/:id', component: ClienteEditComponent },
     { path: 'usuarios', component: UserIndexComponent },
     { path: 'usuarios/registrar', component: UserCreateComponent },
-    { path: 'usuario/editar/:id', component: UserEditComponent },
+    { path: 'usuarios/editar/:id', component: UserEditComponent },
     { path: 'venta', component: VentaIndexComponent },
     { path: 'venta/registrar', component: VentaCreateComponent },
     { path: 'venta/:id', component: VentaDetalleComponent }

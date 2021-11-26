@@ -25,11 +25,16 @@ export class UserCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.identity.role === 'ADMIN'){
+    if(this.identity){
+      if(this.identity.role === 'ADMIN'){
 
+      }else{
+        this._router.navigate(['dashboard']);
+      }
     }else{
-      this._router.navigate(['dashboard']);
+      this._router.navigate(['']);
     }
+    
   }
 
   onSubmit(userForm: any){

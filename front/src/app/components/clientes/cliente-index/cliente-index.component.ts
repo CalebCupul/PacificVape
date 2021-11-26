@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,21 +14,31 @@ export class ClienteIndexComponent implements OnInit {
   public clientes: any;
   public p: number = 1;
   public url: any;
+  public filtro: any;
+  public identity: any;
   
   constructor(
-    private _clientService: ClienteService
-  ) { }
+    private _clientService: ClienteService,
+    private _userService: UserService,
+    private _router: Router
+  ) {
+    this.identity = _userService.getIdentity();
+   }
 
   ngOnInit(): void {
-    this._clientService.get_clientes().subscribe(
-      response =>{
-        this.clientes = response.clientes;
-        console.log(this.clientes);
-      },
-      error =>{
-
-      }
-    )
+    if(this.identity){
+      this._clientService.get_clientes('').subscribe(
+        response =>{
+          this.clientes = response.clientes;
+          console.log(this.clientes);
+        },
+        error =>{
+  
+        }
+      )
+    }else{
+      this._router.navigate(['']);
+    }
   }
 
   eliminar(id: any){
@@ -49,7 +61,7 @@ export class ClienteIndexComponent implements OnInit {
         this._clientService.eliminar_cliente(id).subscribe(
           Response =>{
             // Actualiza la tabla después de borrar el cliente
-            this._clientService.get_clientes().subscribe(
+            this._clientService.get_clientes('').subscribe(
               Response =>{
                 this.clientes = Response.clientes;
               },
@@ -73,6 +85,18 @@ export class ClienteIndexComponent implements OnInit {
         )
       }
     })
+  }
+
+  search(searchForm: any){
+    this._clientService.get_clientes(searchForm.value.filtro).subscribe(
+      response =>{
+        this.clientes = response.clientes;
+        console.log(response);
+      },
+      error =>{
+
+      }
+    )
   }
 
 }

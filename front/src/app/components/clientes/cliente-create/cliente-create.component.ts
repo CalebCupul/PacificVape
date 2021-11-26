@@ -1,7 +1,9 @@
 import { CompileIdentifierMetadata } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cliente } from 'src/app/models/Cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { Producto } from '../../../models/Producto';
 
@@ -13,14 +15,23 @@ import { Producto } from '../../../models/Producto';
 export class ClienteCreateComponent implements OnInit {
   
   public cliente: Cliente;
+  public identity: any;
 
   constructor(
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _userService: UserService,
+    private _router: Router
   ) { 
     this.cliente = new Cliente('','','','',null);
+    this.identity = _userService.getIdentity();
   }
 
   ngOnInit(): void {
+    if(this.identity){
+
+    }else{
+      this._router.navigate(['']);
+    }
   }
 
   onSubmit(clienteForm: any){

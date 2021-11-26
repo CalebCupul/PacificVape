@@ -34,23 +34,27 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit(): void {
         // Si el usuario tiene los permisos de administrador, le muestra el modulo de Usuarios
-    if(this.identity.role === 'ADMIN'){
-      this._route.params.subscribe(params=>{
-        this.id = params['id'];
-        
-        this._userService.get_user(this.id).subscribe(
-          response =>{
-            console.log(response);
-            this.user = response.user;
-          },
-          error=>{
-  
-          }
-        )
-      })
+    if(this.identity){
+      if(this.identity.role === 'ADMIN'){
+        this._route.params.subscribe(params=>{
+          this.id = params['id'];
+          
+          this._userService.get_user(this.id).subscribe(
+            response =>{
+              console.log(response);
+              this.user = response.user;
+            },
+            error=>{
+    
+            }
+          )
+        })
+      }else{
+              // Si no tiene los permisos de administrador, lo redirecciona al Dashboard
+        this._router.navigate(['dashboard']);
+      }
     }else{
-            // Si no tiene los permisos de administrador, lo redirecciona al Dashboard
-      this._router.navigate(['dashboard']);
+      this._router.navigate(['']);
     }
   }
 

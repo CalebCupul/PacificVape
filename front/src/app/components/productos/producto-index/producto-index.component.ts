@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductoService } from 'src/app/services/producto.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { GLOBAL } from '../../../services/GLOBALS';
 
@@ -23,32 +25,39 @@ export class ProductoIndexComponent implements OnInit {
   public _id: any;
   public producto_stock: any;
   public producto_id: any;
-
+  public identity: any
   constructor(
-    private _productoService : ProductoService
+    private _productoService : ProductoService,
+    private _userService: UserService,
+    private _router: Router
   ) {
     this.url = GLOBAL.url;
+    this.identity = this._userService.getIdentity();
    }
 
   ngOnInit(): void {
-    this._productoService.get_productos('').subscribe(
-      response =>{
-        this.productos = response.productos;
-        console.log(this.productos);
-      },
-      error =>{
-
-      }
-    );
-
-    this._productoService.get_categorias().subscribe(
-      response =>{
-        this.categorias = response.categorias;
-      },
-      error =>{
-
-      }
-    )
+    if(this.identity){
+      this._productoService.get_productos('').subscribe(
+        response =>{
+          this.productos = response.productos;
+          console.log(this.productos);
+        },
+        error =>{
+  
+        }
+      );
+  
+      this._productoService.get_categorias().subscribe(
+        response =>{
+          this.categorias = response.categorias;
+        },
+        error =>{
+  
+        }
+      )
+    }else{
+      this._router.navigate(['']);
+    }
 
   }
 

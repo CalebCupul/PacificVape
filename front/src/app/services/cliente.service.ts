@@ -16,9 +16,9 @@ export class ClienteService {
     this.url = GLOBAL.url;
    }
 
-   get_clientes(): Observable<any>{
+   get_clientes(filtro: string): Observable<any>{
     let header = new HttpHeaders().set('content-Type', 'application/json');
-    return this._http.get(this.url + 'clientes', { headers: header });
+    return this._http.get(this.url + 'cliente/' + filtro, { headers: header });
   }
 
   insertar_cliente(data: any): Observable<any>{
@@ -28,7 +28,7 @@ export class ClienteService {
 
   get_cliente(id: any): Observable<any>{
     let header = new HttpHeaders().set('content-Type', 'application/json');
-    return this._http.get(this.url + 'cliente/'+id, { headers: header });
+    return this._http.get(this.url + 'cliente/registro/'+id, { headers: header });
   }
   
   editar_cliente(data: any): Observable<any>{

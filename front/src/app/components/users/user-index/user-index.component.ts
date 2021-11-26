@@ -26,18 +26,22 @@ export class UserIndexComponent implements OnInit {
 
   ngOnInit(): void {
     // Si el usuario tiene los permisos de administrador, le muestra el modulo de Usuarios
-    if(this.identity.role === 'ADMIN'){
-      this._userService.get_users().subscribe(
-        response =>{
-          this.usuarios = response.usuarios;
-        },
-        error =>{
-  
-        }
-      )
+    if(this.identity){
+      if(this.identity.role === 'ADMIN'){
+        this._userService.get_users().subscribe(
+          response =>{
+            this.usuarios = response.usuarios;
+          },
+          error =>{
+    
+          }
+        )
+      }else{
+        // Si no tiene los permisos de administrador, lo redirecciona al Dashboard
+        this._router.navigate(['dashboard']);
+      }
     }else{
-      // Si no tiene los permisos de administrador, lo redirecciona al Dashboard
-      this._router.navigate(['dashboard']);
+      this._router.navigate(['']);
     }
   }
 

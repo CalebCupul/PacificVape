@@ -8,6 +8,7 @@
             </a>
         </nav>
         <main class="content">
+            <!-- aqui pdf -->
             <div class="container-fluid">
 
                 <div class="header">
@@ -22,7 +23,13 @@
                         </ol>
                     </nav>
                 </div>
-                <div class="row">
+                
+                <div class="mb-1" >
+                    <div class="btn-group">
+                        <button type="button" class="btn mb-2 btn-dark bi bi-download" (click)="downloadPDF()"> Reporte</button>
+                    </div>
+                </div>
+                <div class="row" id="htmlData">
                     <div class="col-12 col-xl-12 form-group">
                         <div class="card">
                             <div class="card-header">
@@ -49,6 +56,11 @@
                                     <div class="col-lg-4 form-group">
                                         <label><b>Correo del empleado</b></label>
                                         <input type="text" class="form-control" readonly value="{{venta.id_user.email}}">
+                                    </div>
+
+                                    <div class="col-lg-4 form-group">
+                                        <label><b>Fecha</b></label>
+                                        <input type="text" class="form-control" readonly value="{{venta.fecha | date: 'MMM d, y, h:mm:ss a'}}">
                                     </div> 
                            
                                 </div>

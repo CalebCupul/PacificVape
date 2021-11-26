@@ -50,7 +50,7 @@ export class VentaCreateComponent implements OnInit {
   ngOnInit(): void {
     if(this.identity){
 
-      this._clienteService.get_clientes().subscribe(
+      this._clienteService.get_clientes('').subscribe(
         response =>{
           this.clientes = response.clientes;
         },

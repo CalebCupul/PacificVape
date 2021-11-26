@@ -17,7 +17,7 @@ export class ProductoService {
 
    get_productos(filtro: string): Observable<any>{
      let header = new HttpHeaders().set('content-Type', 'application/json');
-     return this._http.get(this.url + 'productos/' + filtro, { headers: header });
+     return this._http.get(this.url + 'producto/' + filtro, { headers: header });
 
    }
 

@@ -94,7 +94,7 @@ export class UserService {
     fd.append('telefono', data.telefono);
     fd.append('role', data.role);
 
-    return this._http.put(this.url + 'user/editar/'+data._id+'/'+data.img_name, fd);
+    return this._http.put(this.url + 'usuarios/editar/'+data._id+'/'+data.img_name, fd);
    }
 
    eliminar_user(id: any): Observable<any>{

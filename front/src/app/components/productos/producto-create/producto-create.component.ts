@@ -3,6 +3,8 @@ import { EventManager } from '@angular/platform-browser';
 import { Producto } from 'src/app/models/Producto';
 import { ProductoService } from '../../../services/producto.service';
 import Swal from 'sweetalert2';
+import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 interface HtmlInputEvent extends Event{
   target: HTMLInputElement & EventTarget | null;
@@ -20,24 +22,32 @@ export class ProductoCreateComponent implements OnInit {
   public file: any;
   public imgSelect: any;
   public categorias: any;
+  public identity: any;
 
   constructor(
-    private _productoService: ProductoService
+    private _productoService: ProductoService,
+    private _userService: UserService,
+    private _router: Router
   ) { 
-    this.producto = new Producto('','','','','',1,1,1,'');
+    this.producto = new Producto('','','','','',null,null,null,'');
+    this.identity = this._userService.getIdentity();
 }
 
   ngOnInit(): void {
+    if(this.identity){
+      this._productoService.get_categorias().subscribe(
+        response =>{
+          this.categorias = response.categorias;
+          console.log(this.categorias);
+        },
+        error =>{
+  
+        }
+      );
+    }else{
+      this._router.navigate(['']);
+    }
     
-    this._productoService.get_categorias().subscribe(
-      response =>{
-        this.categorias = response.categorias;
-        console.log(this.categorias);
-      },
-      error =>{
-
-      }
-    )
   }
 
   onSubmit(productoForm: any){
@@ -59,7 +69,7 @@ export class ProductoCreateComponent implements OnInit {
             text: 'El producto se registró correctamente'
           });
           console.log(response)
-          this.producto = new Producto('','','','','',1,1,1,'');
+          this.producto = new Producto('','','','','',null,null,null,'');
           this.imgSelect = '../../../../assets/img/default.jpg';
           productoForm.reset();
         },

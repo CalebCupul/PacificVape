@@ -5,9 +5,9 @@ export class Producto{
         public marca: string,
         public imagen: string,
         public descripcion: string,
-        public precio_compra: number,
-        public precio_venta: number,
-        public stock: number,
+        public precio_compra: number | null,
+        public precio_venta: number | null,
+        public stock: number | null,
         public id_categoria: string
     ){
 
