@@ -149,6 +149,7 @@ function login(req,res){
     
 }
 
+
 function editar(req, res){
     var id = req.params['id'];
     var data = req.body;
